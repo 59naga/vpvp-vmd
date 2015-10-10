@@ -1,0 +1,45 @@
+{
+  "name": "vpvp-vmd",
+
+  "main": [
+    "vpvp-vmd.min.js"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "src",
+    "test"
+  ],
+
+  "opc-scripts": {
+    "build": [
+      "browserify ./src",
+      "--transform coffeeify",
+      "--standalone vpvp-vmd",
+      "--extension .coffee",
+      "--debug"
+    ],
+    "uglify": [
+      "uglifyjs",
+
+      "vpvp-vmd.js",
+      "--in-source-map",
+      "vpvp-vmd.js.map",
+
+      "--mangle",
+      "--compress",
+
+      "--output",
+      "vpvp-vmd.min.js",
+      "--source-map",
+      "vpvp-vmd.min.js.map"
+     ]
+  },
+
+  "authors": [
+    "59naga <i59naga@icloud.com>"
+  ],
+  "homepage": "https://github.com/59naga/vpvp-vmd",
+  "license": "MIT"
+}

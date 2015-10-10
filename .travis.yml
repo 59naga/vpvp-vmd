@@ -1,0 +1,37 @@
+# Quick boot options
+sudo: false
+cache:
+  directories:
+    - node_modules
+
+# Ignore version tags
+branches:
+  except:
+    - /^v[0-9]/
+
+# Language options
+language: node_js
+node_js:
+  - '0.12'
+
+env:
+  global:
+    # COVERALLS_REPO_TOKEN
+    - secure: rsLGf3hf3NKwk9zv2l7rEAXdx0lXZRgF3+0bgrKUimyRYqDi0E3g9jUTMKary62iOXLaTiGpqTHGXZi6uVvTZeex1JgzErbMmt7k9qacJvu37A3JHIn1pZGMCawfFAOdjVR53C4r5DThzvm/hD0CMjX/AdWEsWC1Ax+VNHWl1N7JjGWYZiaOSybq2RKoYDmh5YHfw8J4hWT4njqCyTFyJOW5MrEauGVdf4EVz215BRrNnC63i36Mui0WrBJTwJ4EnbDuU/wj0DyhYrxLOm68wG2Zlz4lgmg4wqcaFMzudoAVYz1T7wuDoHOdG31qjwX0kjd4sLI3lUhCz8iPBiqtKfCGJMPruUlw4oyDvVjnrKD1vDwkeImSfS5UK6ypy3xmy5XzLRclShIsfSY7U7x44PxcrtkMdI8pCheH+vBuDdjFeab4TT0a6164otlRFb4Popfmrnie3DZ7s9T6HRP8/EpF7b2kCaoxbV2u1GGbxUv+quFW8rN9HfiG2NNi8f257VruFDcIE44Goo57bas2wsnDdT2uDTKpQOLX/RbjcZrM+br9Ek9pXAHYKvQGOQqHJBxnBPLHeBBUCBbZnjDyMrpDcglQf9NYsTpXSza/qV2TXeaQqKucTfVplJ8xxKe5PiSwTlZCYvyUI/mj6MtaFLz6pSu5jQoKVfFGe8bDmEc=
+    # SAUCE_TOKENS
+    - secure: Pj4JEFUVRUgvNXIpDFrr6sTpt1p9qqqohincVMwcxV/PTCGUxmBxy8eseG+7zAVGUdUxzQ6pwBqd1Xj9UatEF/3F7g0ZMosIqmdw8wkyJYSQVCxZStybk+dK0C5XMvWGqtzI3/+cjmU6G7446u8BKuG88U7ITPdXlB1XU9N+t0ayorbQPAE/eBiLyKqDD4KvWDjoALNj6E2pRPcl2+FLwrEwb4+OJw0+8EdkgC9IhdgIhTYsbTyfOV0zpy4OprRqU9qqBMKinMhXPxsHVXq/LBaPy9912XdZ1u9b6tgtoPJpnQIUWtyN/35Vzj83sOG5AMD39fwoVXg4jyGSyhonp1UZR+5mxu0pJPkmk36nt1YJILVkZPyo7cvCd5a6WQqydfpUB0v0zEIlVLGRGvktYQHQpEOQkGduur+sIN2z2ptQMJXvPVtwdrvb+AANSMMst7fOjpoWGdMBhAsK836Xg/LAmFOx8os0A3trl1N37Djfoqe9+qDb/1G6lBUYT04BgYFOeNWq7TDU2cgtAMuOxFEcl5u82NX6Exox80gMCGOGxftI7Ksit8ItsYPfQwLJXJakINJISZw8zBdtf5peU7VXThqKfhs740wK6/WR4kaCRuISOedgIRCUC0C4YmEtFjxTBRiRj/okVB1C8kvoUZ3kxc3PF39ja13EBKh73+0=
+    - secure: nyVfyFB1l26ocyI+k2c2tQ9+aMgragQDXWNYM8az/oxWB7SY8fIGi+Q76za8/Y3RyPOG9TZMwS7NN8XOTGArthVsVQOhO2v2LIL4aQmgkre+uatmbsgqLJ3qdHj1l2EG+yZB+68xLSDylIP2fpZeUxXc9+EwdJ0ApRTbr2N4FVyGEwNVBIboFsFTxHWaGg7YIBN+DmR6ySIPPdUiW9B1UMNzcmL/kEJG1ufFpwhP3imTgyaDzCKB4hJnTEhmrz0e1Y8aY8pWCBN6vPEHpIPvIdvQdXAXfqxPie6ZTH/6V0GNYsGfTBYDN0/yC8uDwDFVSPG23IhrwORJKG1RKw9zMJt40BUl6MDr/+3Ahj1NxweNjZm5srW329GUoP3GTnV+IdnEPvzgMcMmzBNi0ML4V9+vCQ4rp1gR6pSjgcJRMbvx0nHR7saFr+VHU/h0sU++E8/3mRK+kcf4buLYpCifNMqeqOFntbCD6Y/3UtE8oTf2riOmLl4FimDTWHFVujMpL3UmsUe8RGytwNBGKxcDV+STxZ3AyJN+xFFmV7+ab1ZDD5zdsHPUXdxUDiH3XvIdBVZvKYKZTCtMZPANf8+avYlk5FSQtG/sZ3u8vw9cxOhEXND4zgDKGEFty6nTDC7oW9RyJBoelpsohryF6J/bDFVEiObGV+RmW4tvR6u+UGg=
+
+# Npm publish options
+before_deploy:
+  - npm install coffee-script --global
+deploy:
+  provider: npm
+  email: i59naga@icloud.com
+  api_key:
+    secure: X5/HX8jgRAd72h9KP/dyNXPK2AgamBqe+hcaoBIYpMYvr0L4Jh/1EeKOoQv/Mgb96E4n6vhNahVqYVR+fJn5cTE8F0n3MmM2fia4ZV6vjht72bvZlUPoUEUE49190mUPAy0UriGMu2yNKLz+o1K/em9WHERHQNrKhGTDbHUqULPINpogacOU6N0yslQtU8VnBpZksWOxW2nnLelumcKoG06WUhkTVIiMYZN8qf8q30eVX4EqNGVkPNJFUPcO6VbPu9Ak79WksoLw3ccgoySCgMxw8nbnQEYrY6rad1u0ubBlHkIxeDG/uYuR0E+H++7UVBm/Zt/yk7PzW9usZw2+ft9zgnZfYIe2L8k2ZjUB+l2ilznLkM5E/Q96ekWzPCdhdIWnxij8OsFz12OeNyRz6SC9zGJQ48cYhhlsCLMzhaoVNk1Zhs2BR1Cy/Q43JNiXIF9pn9uNiQuLL4CR8GYurvl1jGxXAj+JLLF+ZIpOL++M2+ptv0uslLU++fKginobPsVxpHNuwDdB5/x90MRwIVeOmh7W2TYtQLM1x2X1tSrp9B8lXqdITqnlwv19lVXMdpvc7/J5yHcMqK4bfULZMnGaaSusXXsMkiuXlWY1prh//SVJZeU8tB+4xRL68/5e8Ulx15/LGnkMGU5Ei+8IRWo/fB4i9rib9E+saC3jl/Q=
+
+# Cloud testing
+after_deploy:
+  - npm install
+  - npm run test-cloud
