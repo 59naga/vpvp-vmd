@@ -14,7 +14,7 @@ $ npm install vpvp-vmd --save
 
 ## vmd.parse(buffer) -> `{header,bone,morph,ik,camera,light,shadow}`
 
-MikuMikuDanceの「モーションデータ保存」で生成した`SHIFT_JIS`の`.vmd`ファイルを`UTF-8`に変換して、オブジェクトを返します。
+MikuMikuDanceの「モーションデータ保存」で生成した`.vmd`ファイルを`UTF-8`に変換して、オブジェクトを返します。
 
 ```js
 // Dependencies
