@@ -19,5 +19,9 @@
   },
   "ensure_comprehensions": {
     "level": "ignore"
+  },
+  "no_debugger": {
+    "level": "error",
+    "console": true
   }
 }

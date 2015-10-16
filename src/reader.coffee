@@ -45,33 +45,44 @@ class Reader extends Utility
     camera.total= camera.byte*camera.count
 
     begin= camera.begin+(camera.byte*camera.count)
-    light= {}
-    light.count= buffer.readUInt32LE begin
-    light.begin= begin+4
-    light.byte= @lightByte
-    light.total= light.byte*light.count
+    if buffer.length > begin
+      light= {}
+      light.count= buffer.readUInt32LE begin
+      light.begin= begin+4
+      light.byte= @lightByte
+      light.total= light.byte*light.count
 
-    begin= light.begin+(light.byte*light.count)
-    shadow= {}
-    shadow.count= buffer.readUInt32LE begin
-    shadow.begin= begin+4
-    shadow.byte= @shadowByte
-    shadow.total= shadow.byte*shadow.count
+      # Fix issue#1
+      light= null if buffer.length < light.begin+light.total
+
+    begin= light?.begin+(light?.byte*light?.count)
+    if buffer.length > begin
+      shadow= {}
+      shadow.count= buffer.readUInt32LE begin
+      shadow.begin= begin+4
+      shadow.byte= @shadowByte
+      shadow.total= shadow.byte*shadow.count
+
+      shadow= null if buffer.length < shadow.begin+shadow.total
 
     # ik長に依存する(9+21*ik.number)*ik.count
-    begin= shadow.begin+(shadow.byte*shadow.count)
-    ik= {}
-    ik.count= buffer.readUInt32LE begin
-    ik.begin= begin+4
-    ik.number= if ik.count > 0 then buffer.readUInt32LE begin+4+5 else 0
-    ik.byte= (9+21*ik.number) # FIXME?: フレームごとにik長が変わる場合は無視する
-    ik.total= ik.byte*ik.count
+    begin= shadow?.begin+(shadow?.byte*shadow?.count)
+    if buffer.length > begin
+      ik= {}
+      ik.count= buffer.readUInt32LE begin
+      ik.begin= begin+4
+      ik.number= if ik.count > 0 then buffer.readUInt32LE begin+4+5 else 0
+      ik.byte= (9+21*ik.number) # FIXME?: フレームごとにik長が変わる場合は無視する
+      ik.total= ik.byte*ik.count
+
+      ik= null if buffer.length < ik.begin+ik.total
 
     {header,bone,morph,camera,light,shadow,ik}
   
   # 先頭50バイトはファイルシグネチャとモデル名(shift_jis)である
   readHeader: (buffer)->
     meta= (@readMeta buffer).header
+    return [] unless meta?
 
     signature= (@sliceTrim buffer,0,meta.signature).toString()
     name= iconv.decode (@sliceTrim buffer,meta.signature,meta.signature+meta.name),'shift_jis'
@@ -80,6 +91,7 @@ class Reader extends Utility
 
   readBone: (buffer)->
     meta= (@readMeta buffer).bone
+    return [] unless meta?
 
     for i in [0...meta.count]
       begin= meta.begin+(meta.byte*i)
@@ -104,6 +116,7 @@ class Reader extends Utility
 
   readMorph: (buffer)->
     meta= (@readMeta buffer).morph
+    return [] unless meta?
 
     for i in [0...meta.count]
       begin= meta.begin+(meta.byte*i)
@@ -122,6 +135,7 @@ class Reader extends Utility
 
   readCamera: (buffer)->
     meta= (@readMeta buffer).camera
+    return [] unless meta?
 
     for i in [0...meta.count]
       begin= meta.begin+(meta.byte*i)
@@ -153,6 +167,7 @@ class Reader extends Utility
 
   readLight: (buffer)->
     meta= (@readMeta buffer).light
+    return [] unless meta?
 
     for i in [0...meta.count]
       begin= meta.begin+(meta.byte*i)
@@ -171,6 +186,7 @@ class Reader extends Utility
 
   readShadow: (buffer)->
     meta= (@readMeta buffer).shadow
+    return [] unless meta?
 
     for i in [0...meta.count]
       begin= meta.begin+(meta.byte*i)
@@ -190,6 +206,7 @@ class Reader extends Utility
   # http://harigane.at.webry.info/201103/article_1.html
   readIK: (buffer)->
     meta= (@readMeta buffer).ik
+    return [] unless meta?
 
     for i in [0...meta.count]
       begin= meta.begin+(meta.byte*i)
